@@ -1,0 +1,5 @@
+Haebit Gothic is derived from Noto Sans KR distributed by @fontsource/noto-sans-kr.
+License: SIL Open Font License 1.1; see LICENSE.txt.
+The per-Unicode webfont subsets were merged, retaining the original glyph outlines.
+Layout tables were removed during merging; family renamed to Haebit Gothic.
+Source: https://github.com/notofonts/noto-cjk

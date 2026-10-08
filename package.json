@@ -1,0 +1,11 @@
+{
+  "name": "haebit-ecosystem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "해빛이의 생태계 인사발령 — 실시간 학급 탐구",
+  "main": "server.js",
+  "scripts": {"start": "node server.js", "test": "node --test test/*.test.js"},
+  "engines": {"node": ">=22"},
+  "dependencies": {"express": "^5.1.0", "socket.io": "^4.8.1"},
+  "devDependencies": {"socket.io-client": "^4.8.1"}
+}
