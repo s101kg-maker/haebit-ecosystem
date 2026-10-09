@@ -1,11 +1,12 @@
 'use strict';
 const {el,button,mascot,bars}=Object.fromEntries(['el','button','mascot','bars'].map(k=>[k,UI[k].bind(UI)]));
 const socket=io(),app=document.querySelector('#app'),notice=document.querySelector('#notice');
-let saved=UI.read('haebit.teacher'),state=null,selected=null,busy=false,paintKey='',sceneHandle=null,view='current',recordDialog=null,recordQuestion=null,recordOrganism=null;
+let saved=UI.read('haebit.teacher'),state=null,selected=null,commentPage=0,busy=false,paintKey='',sceneHandle=null,view='current',recordDialog=null,recordQuestion=null,recordOrganism=null;
 const showError=err=>{notice.textContent=err.message||err;notice.hidden=false;};
 const clearError=()=>{notice.hidden=true;};
 function accept(s){
  if(!s)return;const changed=!state||state.roomCode!==s.roomCode||state.question!==s.question;
+ if(changed||state.presentationStage!==s.presentationStage)commentPage=0;
  state=s;if(changed){selected=null;view='current';}
  saved={...saved,roomCode:s.roomCode};UI.save('haebit.teacher',saved);
  render();if(recordDialog?.open)renderRecords();
@@ -23,7 +24,7 @@ function renderLogin(){clearStage();const stage=el('div','stage login-stage'),p=
 function renderReady(){clearStage();const stage=el('div','stage'),p=el('section','panel waiting-panel');p.append(el('span','eyebrow','활동 1 · 해빛이의 생태계 인사발령'),el('h1','','오늘의 인사발령을 시작합니다'),el('p','large-copy','통지서를 읽고, 직원을 고르고,\n우리 반의 생각을 펼쳐 봐요.'),onlineButton('새 수업 시작하기',()=>action('create_room')));stage.append(mascot(1,'통지서를 보낼 준비가 되었나요?'),p);app.append(stage);updateConnection();}
 function repaint(replay=false){
  const root=document.querySelector('#presentation');if(!root)return;
- sceneHandle?.dispose();sceneHandle=Dispatch.mount(root,{state,selected,onSelect:name=>{selected=name;repaint();},onReplay:()=>repaint(true)});
+ sceneHandle?.dispose();sceneHandle=Dispatch.mount(root,{state,selected,commentPage,onCommentPage:page=>{commentPage=page;repaint();},onSelect:name=>{selected=name;repaint();},onReplay:()=>repaint(true)});
 }
 function makeShell(){
  sceneHandle?.dispose();app.className='dispatch-app';app.replaceChildren();
@@ -56,9 +57,13 @@ function render(){
  }else if(state.presentationStage==='CHOICES'){
    status.append(el('strong','','선택 결과 공개'));
    actions.append(onlineButton('선택 이유 펼치기 →',()=>action('presentation_set',{question:state.question,stage:'REASONS'})));
- }else{
+ }else if(state.presentationStage==='REASONS'){
    status.append(el('strong','','생각을 나누는 시간'));
    actions.append(onlineButton('선택 결과로 돌아가기',()=>action('presentation_set',{question:state.question,stage:'CHOICES'}),'dispatch-secondary'));
+   actions.append(onlineButton('친구들의 의견 보기 →',()=>action('presentation_set',{question:state.question,stage:'COMMENTS'})));
+ }else if(state.presentationStage==='COMMENTS'){
+   status.append(el('strong','','친구들의 생각 함께 읽기'));
+   actions.append(onlineButton('선택 이유로 돌아가기',()=>action('presentation_set',{question:state.question,stage:'REASONS'}),'dispatch-secondary'));
    if(state.question<3)actions.append(onlineButton('다음 인사 요청으로 이동 →',()=>action('next_question',{question:state.question})));
    else actions.append(onlineButton('활동 종료 · 전체 결과 보기',endClass));
  }
@@ -81,7 +86,7 @@ function renderRecords(){
  const s=state.results[recordQuestion],current=s.organisms.find(o=>o.name===recordOrganism)||s.organisms[0];recordOrganism=current.name;
  const columns=el('div','record-columns'),stats=el('section','record-box');stats.append(el('h3','','현재 선택 현황'),bars(s,name=>{recordOrganism=name;renderRecords();},recordOrganism),el('p','participation','참여 '+s.submitted+'명 / 미제출 '+s.missing+'명'),el('h3','',current.name+'를 선택한 이유'));
  current.reasons.forEach((r,i)=>{const row=el('div','reason-result');row.append(el('span','',String(i+1)+'. '+r.label),el('strong','',r.count+'명'));stats.append(row);});
- const comments=el('section','record-box comments');comments.append(el('h3','','친구들의 한마디 · 교사에게만 표시'));if(!s.comments.length)comments.append(el('p','muted','작성한 한마디가 없습니다.'));s.comments.forEach(c=>{const item=el('div','comment-item');item.append(el('strong','',c.studentNumber+'번 · '+c.organism),el('p','',c.comment));comments.append(item);});comments.append(el('p','muted','미제출 번호: '+(s.missingNumbers.join(', ')||'없음')));columns.append(stats,comments);recordDialog.append(columns);
+ const comments=el('section','record-box comments');comments.append(el('h3','','친구들의 한마디'));if(!s.comments.length)comments.append(el('p','muted','작성한 한마디가 없습니다.'));s.comments.forEach(c=>{const item=el('div','comment-item');item.append(el('strong','',c.studentNumber+'번 · '+c.organism),el('p','',c.comment));comments.append(item);});comments.append(el('p','muted','미제출 번호: '+(s.missingNumbers.join(', ')||'없음')));columns.append(stats,comments);recordDialog.append(columns);
  const tools=el('div','record-tools');tools.append(button('전체 결과 보기',()=>{recordDialog.close();view='all';render();},'dispatch-secondary'));
  tools.append(onlineButton('새 수업 초기화',async()=>{recordDialog.close();await resetClass();},'dispatch-secondary'));
  if(!state.ended)tools.append(onlineButton('수업 종료',async()=>{recordDialog.close();await endClass();},'dispatch-secondary'));recordDialog.append(tools);updateConnection();

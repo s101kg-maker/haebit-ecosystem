@@ -41,11 +41,39 @@ test('실시간 수업의 권한, 제출 잠금, 마감, 복구, 방 분리',asy
   assert((await rpc(a.s,'presentation_set',{question:1,stage:'REASONS'})).ok);
  });
  await t.test('요청별 이유 문구가 해당 집계에 연결됨',async()=>{const {QUESTIONS}=require('../public/content');const r=await rpc(a.s,'teacher_resume',{auth:a.auth,roomCode:a.code});for(let i=0;i<3;i++){for(const o of r.state.results[i].organisms)assert.deepEqual(o.reasons.map(x=>x.label),QUESTIONS[i].reasons);}assert.equal(new Set(r.state.results.map(s=>JSON.stringify(s.organisms[0].reasons.map(x=>x.label)))).size,3);});
+ await t.test('칠판 의견 공개 단계 · 전체 의견 보존 · 교사 복구 · 학생 화면 대기',async()=>{
+  assert.equal((await rpc(students[0].s,'presentation_set',{question:1,stage:'COMMENTS'})).ok,false);
+  let r=await rpc(a.s,'presentation_set',{question:1,stage:'COMMENTS'});assert(r.ok);assert.equal(r.state.presentationStage,'COMMENTS');
+  assert.deepEqual(r.state.results[0].comments,[{studentNumber:1,organism:'소나무',comment:'<img src=x onerror=alert(1)>'}]);
+  r=await rpc(a.s,'teacher_resume',{auth:a.auth,roomCode:a.code});assert.equal(r.state.presentationStage,'COMMENTS');
+  const student=await rpc(students[2].s,'student_join',{roomCode:a.code,studentNumber:3,studentToken:students[2].token});
+  assert.equal(student.state.questionState,'CLOSED');assert.equal(student.state.comments,undefined);assert.equal(student.state.results.comments,undefined);
+  assert.equal((await rpc(a.s,'presentation_set',{question:2,stage:'COMMENTS'})).ok,false);
+ });
  await t.test('교사만 다음 요청 이동 · 미제출 학생도 참여',async()=>{const push=once(students[2].s,'student_state');assert((await rpc(a.s,'next_question',{question:1})).ok);const next=await push;assert.equal(next.question,2);assert.equal(next.questionState,'OPEN');assert.equal((await rpc(a.s,'presentation_set',{question:2,stage:'REASONS'})).ok,false);assert.equal(next.submitted,false);assert.equal(next.results,undefined);assert.equal((await rpc(a.s,'next_question',{question:1})).ok,false);assert((await rpc(students[2].s,'student_submit',{question:2,organism:'토끼',reason:2})).ok);});
  await t.test('서로 다른 수업방 분리',async()=>{const b=await teacher();assert.notEqual(a.code,b.code);assert((await rpc(b.s,'intro_next',{stage:'LOBBY'})).ok);assert((await rpc(b.s,'intro_next',{stage:'STORY'})).ok);const s=await connect();assert((await rpc(s,'student_join',{roomCode:b.code,studentNumber:1})).ok);assert((await rpc(s,'student_submit',{question:1,organism:'곰팡이',reason:3})).ok);const bState=(await rpc(b.s,'teacher_resume',{auth:b.auth,roomCode:b.code})).state;assert.equal(bState.results[0].submitted,1);const aState=(await rpc(a.s,'teacher_resume',{auth:a.auth,roomCode:a.code})).state;assert.equal(aState.results[0].submitted,2);assert.equal(aState.results[1].submitted,1);assert.equal((await rpc(b.s,'teacher_resume',{auth:b.auth,roomCode:a.code})).ok,false);});
  await t.test('3번 종료 및 전체 결과',async()=>{assert((await rpc(a.s,'close_poll',{question:2})).ok);assert((await rpc(a.s,'presentation_set',{question:2,stage:'REASONS'})).ok);assert((await rpc(a.s,'next_question',{question:2})).ok);assert((await rpc(students[4].s,'student_submit',{question:3,organism:'곰팡이',reason:3,comment:'낙엽이 많아서'})).ok);assert((await rpc(a.s,'close_poll',{question:3})).ok);assert.equal((await rpc(a.s,'next_question',{question:3})).ok,false);const push=once(students[4].s,'student_state');const end=await rpc(a.s,'class_end');assert(end.state.ended);assert((await push).ended);assert.equal(end.state.results.length,3);assert.equal((await rpc(students[5].s,'student_submit',{question:3,organism:'매',reason:2})).ok,false);});
  await t.test('초기화와 기존 코드 만료',async()=>{const old=a.code;const push=once(students[4].s,'room_removed');const r=await rpc(a.s,'reset_room');assert(r.ok);await push;assert.notEqual(r.state.roomCode,old);assert.equal(r.state.results[0].submitted,0);assert.equal((await rpc(students[4].s,'student_join',{roomCode:old,studentNumber:5})).ok,false);});
  await t.test('HTTP 경로 · 보안 헤더 · 상태 확인',async()=>{for(const route of ['/','/teacher','/student','/socket.io/socket.io.js','/assets/haebit-01.png','/health']){const r=await fetch(url+route);assert.equal(r.status,200);if(!route.startsWith('/socket.io/'))assert(r.headers.get('content-security-policy'));}});
+});
+test('의견은 번호가 아닌 제출 순서를 유지하며 빈 의견을 제외한다',async t=>{
+ const instance=createApp({teacherPin:'9876'});await new Promise(r=>instance.server.listen(0,'127.0.0.1',r));
+ const url='http://127.0.0.1:'+instance.server.address().port,clients=[];
+ t.after(async()=>{clients.forEach(s=>s.disconnect());await new Promise(r=>instance.io.close(r));});
+ async function connect(){const s=io(url,{transports:['websocket'],reconnection:false});clients.push(s);await once(s,'connect');return s;}
+ const teacher=await connect(),login=await rpc(teacher,'teacher_login',{pin:'9876'}),room=await rpc(teacher,'create_room');
+ await rpc(teacher,'intro_next',{stage:'LOBBY'});await rpc(teacher,'intro_next',{stage:'STORY'});
+ for(const n of [21,4,16,2]){
+  const s=await connect();assert((await rpc(s,'student_join',{roomCode:room.state.roomCode,studentNumber:n})).ok);
+  assert((await rpc(s,'student_submit',{question:1,organism:'소나무',reason:1,comment:n===4?'   ':n+'번 의견'})).ok);
+ }
+ const expected=[21,16,2];
+ let r=await rpc(teacher,'teacher_resume',{auth:login.auth,roomCode:room.state.roomCode});
+ assert.deepEqual(r.state.results[0].comments.map(c=>c.studentNumber),expected);
+ assert((await rpc(teacher,'close_poll',{question:1})).ok);
+ r=await rpc(teacher,'presentation_set',{question:1,stage:'COMMENTS'});assert.deepEqual(r.state.results[0].comments.map(c=>c.studentNumber),expected);
+ const recovered=await connect();r=await rpc(recovered,'teacher_resume',{auth:login.auth,roomCode:room.state.roomCode});
+ assert.equal(r.state.presentationStage,'COMMENTS');assert.deepEqual(r.state.results[0].comments.map(c=>c.studentNumber),expected);
 });
 test('서버 재시작 시 이전 방과 토큰이 유효하지 않음, PIN 미설정 차단',async()=>{
  const instance=createApp({teacherPin:''});await new Promise(r=>instance.server.listen(0,'127.0.0.1',r));const s=io('http://127.0.0.1:'+instance.server.address().port,{transports:['websocket']});await once(s,'connect');try{assert.equal((await rpc(s,'teacher_login',{pin:''})).ok,false);assert.equal((await rpc(s,'teacher_resume',{auth:'previous',roomCode:'1111'})).ok,false);assert.equal((await rpc(s,'student_join',{roomCode:'1111',studentNumber:1})).ok,false);}finally{s.disconnect();await new Promise(r=>instance.io.close(r));}

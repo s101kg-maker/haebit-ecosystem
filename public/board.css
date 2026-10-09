@@ -260,3 +260,45 @@
  .teacher.board-display .reason-organism-tab{font-family:'Haebit Gothic',sans-serif;font-size:18px;border-radius:4px}
  .teacher.board-display .reason-discussion{font-size:18px}
 }
+/* Read every submitted opinion together, with six legible cards per page. */
+.teacher.board-display .dispatch-comment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:100%;max-width:1100px;margin:0 auto}
+.teacher.board-display .dispatch-comment-card{min-width:0;background:#fffefa;border:1px solid #d7dcca;border-radius:5px;padding:18px 22px;display:flex;flex-direction:column;gap:12px}
+.teacher.board-display .comment-card-meta{display:flex;align-items:center;gap:12px;font-family:'Haebit Gothic',sans-serif;font-size:14px;color:#61765d}
+.teacher.board-display .comment-student{color:#235644;font-weight:700}
+.teacher.board-display .comment-organism{padding-left:12px;border-left:1px solid #d4dbc9}
+.teacher.board-display .comment-card-text{margin:0;color:#233f32;font-family:'Haebit Gothic',sans-serif;font-size:23px;line-height:1.5;font-weight:400;letter-spacing:-.02em;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
+.teacher.board-display .comment-pager{display:flex;align-items:center;justify-content:center;gap:24px;margin:12px auto 0}
+.teacher.board-display .comment-pager button:disabled{opacity:.35;cursor:default}
+.teacher.board-display .comment-page-count{margin:0;display:flex;flex-direction:column;align-items:center;gap:3px;font:14px/1.4 'Haebit Gothic',sans-serif;color:#61765d;min-width:110px}
+.teacher.board-display .comment-page-count strong{font-size:20px;color:#235644;font-weight:700;font-variant-numeric:tabular-nums}
+.teacher.board-display .comment-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;font-family:'Haebit Gothic',sans-serif;min-height:200px}
+.teacher.board-display .comment-empty h2{font-size:26px;font-weight:700;line-height:1.5}
+.teacher.board-display .comment-empty p{font-size:22px;line-height:1.5;color:#61765d}
+@media(min-width:950px){
+ .teacher.board-display .dispatch-comment-grid{flex:1;min-height:0;max-width:calc(1100px * var(--bs));grid-template-rows:repeat(2,minmax(0,1fr));gap:calc(12px * var(--bs))}
+ .teacher.board-display .dispatch-comment-card{min-height:0;padding:calc(10px * var(--bs)) calc(22px * var(--bs));gap:calc(6px * var(--bs));justify-content:center}
+ .teacher.board-display .comment-card-meta{font-size:calc(13px * var(--bs));gap:calc(12px * var(--bs));line-height:1.4}
+ .teacher.board-display .comment-organism{padding-left:calc(12px * var(--bs))}
+ .teacher.board-display .comment-card-text{font-size:calc(22px * var(--bs));line-height:1.5}
+ .teacher.board-display .comment-pager{flex-shrink:0;margin:0 auto;gap:calc(24px * var(--bs))}
+ .teacher.board-display .comment-pager .dispatch-secondary{font-size:calc(14px * var(--bs));padding:calc(7px * var(--bs)) calc(16px * var(--bs))}
+ .teacher.board-display .comment-page-count{font-size:calc(12px * var(--bs));gap:calc(2px * var(--bs));min-width:calc(110px * var(--bs))}
+ .teacher.board-display .comment-page-count strong{font-size:calc(19px * var(--bs))}
+ .teacher.board-display .comment-empty{min-height:0;gap:calc(16px * var(--bs))}
+ .teacher.board-display .comment-empty h2{font-size:calc(28px * var(--bs))}
+ .teacher.board-display .comment-empty p{font-size:calc(23px * var(--bs))}
+}
+@media(max-width:949px){
+ .teacher.board-display .dispatch-comment-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+ .teacher.board-display .dispatch-comment-card{padding:18px 20px}
+ .teacher.board-display .comment-pager{gap:12px;flex-wrap:wrap;margin-top:18px}
+ .teacher.board-display .comment-pager .dispatch-secondary{font-size:14px;padding:10px 12px;min-height:44px}
+ .teacher.board-display .comment-page-count{min-width:80px;font-size:12px}
+ .teacher.board-display .comment-card-text{font-size:22px}
+ .teacher.board-display .comment-empty{padding:25px 0}
+ .teacher.board-display .comment-empty h2{font-size:23px}
+ .teacher.board-display .comment-empty p{font-size:20px}
+}
+@media(max-width:619px){
+ .teacher.board-display .dispatch-comment-grid{grid-template-columns:1fr}
+}

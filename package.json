@@ -1,6 +1,6 @@
 {
   "name": "haebit-ecosystem",
-  "version": "2.5.0",
+  "version": "2.6.1",
   "private": true,
   "description": "해빛이의 생태계 인사발령 — 실시간 학급 탐구",
   "main": "server.js",

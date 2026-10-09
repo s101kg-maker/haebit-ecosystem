@@ -57,7 +57,8 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
       question: index + 1, state: room.questionStates[index], submitted: responses.length, missing: TOTAL - responses.length,
       organisms: QUESTIONS[index].organisms.map(o => ({ name: o.name, count: responses.filter(r => r.organism === o.name).length,
         reasons: QUESTIONS[index].reasons.map((label, reason) => ({ label, count: responses.filter(r => r.organism === o.name && r.reason === reason + 1).length })) })),
-      comments: responses.filter(r => r.comment).sort((a,b) => a.studentNumber-b.studentNumber).map(r => ({ studentNumber:r.studentNumber, organism:r.organism, comment:r.comment })),
+      // Response maps retain the order in which submissions were accepted, even within the same millisecond.
+      comments: responses.filter(r => r.comment).map(r => ({ studentNumber:r.studentNumber, organism:r.organism, comment:r.comment })),
       missingNumbers: Array.from({length:TOTAL}, (_,i) => i+1).filter(n => !room.responses[index].has(n))
     };
   }
@@ -169,13 +170,13 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
     reply(socket,'presentation_set',({question,stage})=>{
       const room=authTeacher(socket); checkQuestion(room,question);
       if(room.ended || room.questionStates[room.currentQuestion]!=='CLOSED') fail('집계를 마감한 뒤 결과를 공개해 주세요.');
-      if(!['CHOICES','REASONS'].includes(stage)) fail('공개 화면을 다시 확인해 주세요.');
+      if(!['CHOICES','REASONS','COMMENTS'].includes(stage)) fail('공개 화면을 다시 확인해 주세요.');
       room.presentationStage=stage; publish(room,false); return {state:teacherView(room)};
     });
     reply(socket,'next_question',({question})=>{
       const room=authTeacher(socket); checkQuestion(room,question);
       if(room.ended || room.questionStates[room.currentQuestion]!=='CLOSED' || room.currentQuestion>=2) fail('결과를 확인한 뒤 다음 요청으로 이동해 주세요.');
-      if(room.presentationStage!=='REASONS') fail('선택 이유를 함께 확인한 뒤 다음 요청으로 이동해 주세요.');
+      if(!['REASONS','COMMENTS'].includes(room.presentationStage)) fail('선택 이유와 의견을 함께 확인한 뒤 다음 요청으로 이동해 주세요.');
       room.currentQuestion++; room.questionStates[room.currentQuestion]='OPEN'; room.presentationStage='NOTICE'; publish(room); return {state:teacherView(room)};
     });
     reply(socket,'class_end',()=>{

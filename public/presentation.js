@@ -5,7 +5,7 @@ window.Dispatch = (() => {
   const img=(src,cls,alt='')=>{const node=e('img',cls);node.src=src;node.alt=alt;return node;};
   const reduced=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function header(label,title,subtitle){const box=e('header','scene-heading');if(label)box.append(e('p','scene-kicker',label));box.append(e('h1','scene-title',title));if(subtitle)box.append(e('p','scene-subtitle',subtitle));return box;}
-  function mount(root,{state,stage=state.presentationStage,index=state.question-1,selected,onSelect=()=>{},onReplay=()=>{}}){
+  function mount(root,{state,stage=state.presentationStage,index=state.question-1,selected,commentPage=0,onCommentPage=()=>{},onSelect=()=>{},onReplay=()=>{}}){
     const q=Content.QUESTIONS[index],summary=state.results[index];
     const scene=e('section','dispatch-scene scene-'+stage.toLowerCase());scene.dataset.stage=stage;
     root.replaceChildren(scene);const timers=[];let stopped=false,finishTyping=()=>{};
@@ -64,6 +64,24 @@ window.Dispatch = (() => {
         const card=e('article','dispatch-reason-card');card.style.animationDelay=i*140+'ms';
         const number=e('span','reason-card-index',String(i+1).padStart(2,'0')),phrase=e('p','reason-card-text',r.label),count=e('div','reason-card-count');count.append(e('strong','',String(r.count)),e('span','','명'));card.append(number,phrase,count);cards.append(card);
       });scene.append(cards,e('p','reason-discussion','“이렇게 생각한 까닭을 이야기해 줄 친구가 있나요?”'));
+    }else if(stage==='COMMENTS'){
+      const comments=summary.comments||[],pageCount=Math.max(1,Math.ceil(comments.length/6)),page=Math.max(0,Math.min(commentPage,pageCount-1));
+      scene.append(header('인사 요청 '+String(index+1).padStart(2,'0')+' · 한마디 나누기','친구들이 직접 쓴 의견'));
+      if(comments.length){
+        const grid=e('div','dispatch-comment-grid');grid.setAttribute('aria-label','친구들의 의견');grid.setAttribute('aria-live','polite');
+        comments.slice(page*6,page*6+6).forEach(c=>{
+          const card=e('article','dispatch-comment-card'),meta=e('div','comment-card-meta');
+          meta.append(e('strong','comment-student',c.studentNumber+'번'),e('span','comment-organism',c.organism+' 선택'));
+          card.append(meta,e('p','comment-card-text',c.comment));grid.append(card);
+        });scene.append(grid);
+        const pager=e('nav','comment-pager');pager.setAttribute('aria-label','의견 페이지');
+        const previous=UI.button('← 이전 의견',()=>onCommentPage(page-1),'dispatch-secondary'),next=UI.button('다음 의견 →',()=>onCommentPage(page+1),'dispatch-secondary');
+        previous.disabled=page===0;next.disabled=page===pageCount-1;
+        const count=e('p','comment-page-count');count.append(e('strong','',String(page+1)+' / '+pageCount),e('span','','제출 순서 · '+comments.length+'개 의견'));
+        pager.append(previous,count,next);scene.append(pager);
+      }else{
+        const empty=e('div','comment-empty');empty.append(e('h2','','이번 요청에는 직접 쓴 의견이 없어요.'),e('p','','선택한 이유를 말로 함께 나눠 볼까요?'));scene.append(empty);
+      }
     }
     return {finishTyping,dispose(){stopped=true;timers.forEach(clearTimeout);}};
   }
