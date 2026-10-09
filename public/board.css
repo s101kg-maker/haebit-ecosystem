@@ -1,0 +1,262 @@
+/* Document typography: Gowun Batang notices, clean reading text, restrained classroom accents. */
+.teacher.board-display{--dispatch-font:'Haebit Gothic','Haebit Gothic',sans-serif;--dispatch-reading:'Haebit Gothic','Haebit Gothic',sans-serif;background:#f3f1e9;background-image:none;color:#173f35}
+.teacher.board-display .topbar{background:#173f35;border-bottom:2px solid #c5ac69;padding:0 30px}
+.teacher.board-display .brand{font-family:'Haebit Gothic',sans-serif;font-size:22px;font-weight:400;letter-spacing:.01em}
+.teacher.board-display .story-line,.teacher.board-display .typed-line{display:grid;min-height:0}
+.teacher.board-display .story-line:before{content:attr(aria-label);visibility:hidden;grid-area:1/1;white-space:pre-line}
+.teacher.board-display .typed-line:before{content:attr(data-full-text);visibility:hidden;grid-area:1/1}
+.teacher.board-display .typed-text{grid-area:1/1;text-wrap:pretty}
+.teacher.board-display .story-line{font-family:'Haebit Gothic',sans-serif;font-weight:400;line-height:1.55}
+.teacher.board-display .letter-content{font-family:'Haebit Gothic',sans-serif;font-weight:400;line-height:1.65}
+.teacher.board-display .story-bubble{white-space:pre-line;word-break:keep-all;line-height:1.5}
+.teacher.board-display .scene-title,.teacher.board-display .story-title{font-family:'Haebit Gothic',sans-serif;font-weight:700!important;letter-spacing:-.035em}
+.teacher.board-display .scene-lobby .scene-title,.teacher.board-display .letter-heading h1{font-family:'Haebit Serif',serif;font-weight:700!important;letter-spacing:.025em}
+.teacher.board-display .dispatch-primary,.teacher.board-display .dispatch-secondary{font-family:'Haebit Gothic',sans-serif;font-weight:700}
+.teacher.board-display .footer-status strong{font-family:'Haebit Gothic',sans-serif;font-weight:400}
+.teacher.board-display .entry-ticket{background:#fffefa;border:1px solid #d0d4c5;border-radius:6px;box-shadow:0 12px 28px #253b2810}
+.teacher.board-display .dispatch-letter{background:#fffefa;border:1px solid #c6c6ad;border-radius:4px;box-shadow:0 12px 28px #253b2812}
+.teacher.board-display .dispatch-letter:before,.teacher.board-display .dispatch-letter:after{width:20px;height:20px;background:transparent;border:0;border-radius:0;top:auto}
+.teacher.board-display .dispatch-letter:before{top:10px;left:10px;border-top:1px solid #b3a375;border-left:1px solid #b3a375}
+.teacher.board-display .dispatch-letter:after{right:10px;bottom:10px;border-bottom:1px solid #b3a375;border-right:1px solid #b3a375}
+.teacher.board-display .dispatch-reason-card{border:1px solid #cdd9c5;border-radius:5px;background:#fffefa;box-shadow:none}
+.teacher.board-display .reason-card-text{font-family:'Haebit Gothic',sans-serif;font-weight:400;line-height:1.4}
+.teacher.board-display .summary-grid h2{font-family:'Haebit Gothic',sans-serif;font-weight:400}
+.teacher.board-display .summary-grid .bar-name,.teacher.board-display .summary-grid .bar-count{font-family:'Haebit Gothic',sans-serif;font-weight:400}
+.teacher.board-display .summary-prompt h2{font-family:'Haebit Gothic',sans-serif;font-weight:400}
+@media(min-width:950px){
+ .teacher.board-display .dispatch-app{--bs:var(--board-scale,1);max-width:none;width:100%;height:calc(100dvh - 56px);min-height:0;padding:calc(14px * var(--bs)) calc(40px * var(--bs));gap:calc(10px * var(--bs))}
+ .teacher.board-display .classroom-shelf{min-height:calc(30px * var(--bs));flex-shrink:0}
+ .teacher.board-display .classroom-room{gap:calc(10px * var(--bs));font-family:'Haebit Gothic',sans-serif;font-size:calc(13px * var(--bs));color:#667e6b}
+ .teacher.board-display .classroom-room strong{font-family:'Haebit Gothic',sans-serif;font-size:calc(25px * var(--bs));letter-spacing:calc(3px * var(--bs));font-weight:400;color:#315d48}
+ .teacher.board-display .classroom-presence{font-size:calc(13px * var(--bs))}
+ .teacher.board-display .classroom-settings-button{font-family:'Haebit Gothic',sans-serif;font-size:calc(13px * var(--bs));border-color:#cad4c1;border-radius:9px;padding:calc(5px * var(--bs)) calc(12px * var(--bs));background:#fffefa}
+ .teacher.board-display .presentation-root{min-height:0}
+ .teacher.board-display .dispatch-scene{display:flex;flex-direction:column;gap:calc(10px * var(--bs));min-height:0}
+ .teacher.board-display .classroom-footer{min-height:calc(56px * var(--bs));padding-top:calc(9px * var(--bs));flex-shrink:0;border-top:1px solid #cbd5c2}
+ .teacher.board-display .footer-status strong{font-size:calc(19px * var(--bs));line-height:1.3}
+ .teacher.board-display .footer-status span{font-family:'Haebit Gothic',sans-serif;font-size:calc(13px * var(--bs))}
+ .teacher.board-display .dispatch-primary{font-size:calc(19px * var(--bs));padding:calc(12px * var(--bs)) calc(24px * var(--bs));border-radius:5px;background:#235644;box-shadow:none}
+ .teacher.board-display .dispatch-secondary{font-size:calc(15px * var(--bs));padding:calc(10px * var(--bs)) calc(15px * var(--bs));border-radius:5px}
+ .teacher.board-display .quiet-button{font-size:calc(13px * var(--bs));padding:calc(4px * var(--bs)) calc(8px * var(--bs));color:#738573}
+ .teacher.board-display .typing-controls{margin:0;gap:calc(16px * var(--bs));flex-shrink:0}
+ .teacher.board-display .scene-heading{margin:calc(6px * var(--bs)) 0 calc(4px * var(--bs));flex-shrink:0}
+ .teacher.board-display .scene-kicker{font-family:'Haebit Gothic',sans-serif;font-size:calc(14px * var(--bs));margin-bottom:calc(6px * var(--bs));letter-spacing:.04em;color:#6b826c}
+ .teacher.board-display .scene-title{font-size:calc(34px * var(--bs));line-height:1.15}
+ .teacher.board-display .scene-subtitle{font-family:'Haebit Gothic',sans-serif;font-size:calc(19px * var(--bs));line-height:1.5;margin-top:calc(8px * var(--bs));color:#526f58}
+ /* Arrival: one code ticket, one mascot, then one attendance strip. */
+ .teacher.board-display .scene-lobby .scene-title{font-size:calc(34px * var(--bs))}
+ .teacher.board-display .scene-lobby .scene-subtitle{font-size:calc(22px * var(--bs))}
+ .teacher.board-display .reception-layout{flex:1;min-height:0;width:100%;max-width:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) calc(240px * var(--bs));grid-template-rows:minmax(0,1fr);gap:calc(32px * var(--bs));align-items:stretch}
+ .teacher.board-display .entry-ticket{min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:calc(20px * var(--bs))}
+ .teacher.board-display .entry-label{font-family:'Haebit Gothic',sans-serif;font-size:calc(21px * var(--bs));letter-spacing:.08em;color:#5c7760}
+ .teacher.board-display .entry-code{font-family:'Haebit Gothic',sans-serif;font-weight:400;font-size:calc(116px * var(--bs));line-height:1.12;letter-spacing:calc(14px * var(--bs));padding-left:calc(14px * var(--bs));margin:calc(8px * var(--bs)) 0;color:#245d46}
+ .teacher.board-display .entry-how{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));font-weight:400;line-height:1.5;margin:calc(8px * var(--bs)) 0 0;color:#456c52}
+ .teacher.board-display .reception-actor{display:flex;flex-direction:column;min-height:0;justify-content:center;gap:calc(10px * var(--bs))}
+ .teacher.board-display .reception-actor .dispatch-haebit{width:calc(220px * var(--bs));height:auto;min-height:0;flex:1;max-height:calc(270px * var(--bs));margin:0 auto}
+ .teacher.board-display .reception-actor p{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));line-height:1.4;flex-shrink:0;margin:0;color:#315b45}
+ .teacher.board-display .entry-attendance{max-width:none;width:100%;margin:calc(6px * var(--bs)) 0 0;flex-shrink:0}
+ .teacher.board-display .entry-total{display:none}
+ .teacher.board-display .entry-number-grid{grid-template-columns:repeat(27,minmax(0,1fr));gap:calc(5px * var(--bs))}
+ .teacher.board-display .entry-number{font-family:'Haebit Gothic',sans-serif;font-size:calc(22px * var(--bs));padding:calc(6px * var(--bs)) 0;border-radius:4px}
+ .teacher.board-display .entry-number.is-entered{background:#235644;color:#fffdf0}
+ .teacher.board-display .entry-legend{font-family:'Haebit Gothic',sans-serif;font-size:calc(13px * var(--bs));margin-top:calc(7px * var(--bs))}
+ /* Narrative: compact, stable lines with generous space around the block. */
+ .teacher.board-display .story-layout{flex:1;min-height:0;width:100%;max-width:none;margin:0;grid-template-columns:minmax(0,1fr) calc(270px * var(--bs));gap:calc(42px * var(--bs));align-items:center}
+ .teacher.board-display .story-copy{padding:calc(4px * var(--bs)) 0;display:flex;flex-direction:column;gap:calc(14px * var(--bs))}
+ .teacher.board-display .story-alert{font-family:'Haebit Gothic',sans-serif;font-size:calc(20px * var(--bs));padding:calc(5px * var(--bs)) calc(14px * var(--bs));margin:0;align-self:flex-start;background:#f7dda0;border-radius:4px;transform:rotate(-3deg)}
+ .teacher.board-display .story-title{font-size:calc(34px * var(--bs));line-height:1.15;margin:0 0 calc(3px * var(--bs))}
+ .teacher.board-display .story-line{font-size:calc(24px * var(--bs));font-weight:400;line-height:1.55;min-height:0;margin:0;word-break:keep-all}
+ .teacher.board-display .story-invitation{font-size:calc(24px * var(--bs));color:#2b7050}
+ .teacher.board-display .mixed-name-tags{margin:calc(6px * var(--bs)) 0 0;gap:calc(18px * var(--bs))}
+ .teacher.board-display .name-tag{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));padding:calc(8px * var(--bs)) calc(22px * var(--bs));border-width:1px;border-radius:4px;box-shadow:2px 3px 0 #dce6d5}
+ .teacher.board-display .story-actor{min-height:0;display:flex;flex-direction:column;align-self:stretch;align-items:center;justify-content:center;gap:calc(12px * var(--bs))}
+ .teacher.board-display .story-bubble{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));padding:calc(14px * var(--bs));width:100%;margin:0;flex-shrink:0;border-width:1px;border-radius:18px;background:#fffcf2;color:#426b50}
+ .teacher.board-display .story-actor .dispatch-haebit{height:auto;width:calc(250px * var(--bs));min-height:0;flex:1;max-height:calc(300px * var(--bs));margin:0}
+ /* Official notice: brass rules, clear serif text, two well-spaced paragraphs. */
+ .teacher.board-display .letter-layout{flex:1;min-height:0;width:100%;max-width:none;margin:0;grid-template-columns:minmax(0,1fr) calc(205px * var(--bs));grid-template-rows:minmax(0,1fr);gap:calc(26px * var(--bs));align-items:stretch}
+ .teacher.board-display .dispatch-letter{display:flex;flex-direction:column;height:100%;min-height:0;padding:calc(22px * var(--bs)) calc(36px * var(--bs));box-shadow:0 calc(12px * var(--bs)) calc(28px * var(--bs)) #253b2812}
+ .teacher.board-display .letter-meta{font-family:'Haebit Gothic',sans-serif;font-size:calc(13px * var(--bs));letter-spacing:0;padding-bottom:calc(10px * var(--bs));flex-shrink:0;color:#698068;border-color:#bdcbb6}
+ .teacher.board-display .letter-heading{padding:calc(13px * var(--bs)) 0 calc(11px * var(--bs));flex-shrink:0;border-bottom:2px solid #b69a62}
+ .teacher.board-display .letter-heading h1{font-size:calc(40px * var(--bs));line-height:1.3;margin:0;letter-spacing:calc(2px * var(--bs))}
+ .teacher.board-display .letter-recipient{font-family:'Haebit Gothic',sans-serif;font-size:calc(17px * var(--bs));padding:calc(11px * var(--bs)) 0;flex-shrink:0;border-color:#d8e0ce}
+ .teacher.board-display .letter-recipient strong{font-weight:400}
+ .teacher.board-display .recipient-label{font-size:calc(13px * var(--bs))}
+ .teacher.board-display .letter-content{font-family:'Haebit Gothic',sans-serif;font-weight:400;font-size:calc(31px * var(--bs));line-height:1.7;min-height:0;flex:1;display:flex;flex-direction:column;justify-content:center;margin:calc(10px * var(--bs)) 0;word-break:keep-all;color:#2b3c32}
+ .teacher.board-display .typed-line{min-height:0;max-width:24em}
+ .teacher.board-display .typed-line+.typed-line{margin-top:calc(22px * var(--bs))}
+ .teacher.board-display .letter-signature{min-height:calc(43px * var(--bs));padding-top:calc(10px * var(--bs));padding-right:calc(69px * var(--bs));flex-shrink:0;justify-content:center;border-color:#cbd7bf}
+ .teacher.board-display .letter-signature>span{display:none}
+ .teacher.board-display .letter-signature>strong{font-family:'Haebit Gothic',sans-serif;font-size:calc(18px * var(--bs));font-weight:400;letter-spacing:.01em}
+ .teacher.board-display .letter-seal{width:calc(50px * var(--bs));height:calc(50px * var(--bs));border-width:1px;color:#a7644a;border-color:#a7644a;outline-color:#a7644a}
+ .teacher.board-display .letter-seal strong{font-size:calc(15px * var(--bs))}
+ .teacher.board-display .letter-seal span{font-size:calc(9px * var(--bs))}
+ .teacher.board-display .dispatch-actor{min-height:0;justify-content:center;gap:calc(22px * var(--bs))}
+ .teacher.board-display .actor-caption{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));line-height:1.4;padding:calc(14px * var(--bs)) calc(12px * var(--bs));border-radius:18px;background:#fae9b5;border-color:#decfa1;color:#45613e}
+ .teacher.board-display .actor-caption:after{background:#fae9b5;border-color:#decfa1}
+ .teacher.board-display .dispatch-actor .dispatch-haebit{height:auto;width:calc(205px * var(--bs));min-height:0;flex:1;max-height:calc(325px * var(--bs))}
+ /* Centered conventional graph: modest bars, shared baseline and readable labels. */
+ .teacher.board-display .choice-stage-body{flex:1;min-height:0;width:100%;max-width:none;display:flex;justify-content:center;align-items:center;margin:0}
+ .teacher.board-display .dispatch-chart{width:calc(720px * var(--bs));max-width:85%;height:min(100%,calc(390px * var(--bs)));min-height:0;padding:0 calc(20px * var(--bs)) 0 calc(55px * var(--bs));margin:0 auto}
+ .teacher.board-display .chart-columns{height:100%;grid-template-rows:minmax(0,1fr);padding-top:calc(72px * var(--bs));gap:calc(28px * var(--bs))}
+ .teacher.board-display .chart-column{height:auto;min-height:0;display:flex;flex-direction:column}
+ .teacher.board-display .chart-shaft{height:auto;min-height:0;flex:1}
+ .teacher.board-display .chart-guide:last-child{border-color:#798b7a}
+ .teacher.board-display .chart-guides{top:calc(72px * var(--bs));height:calc(100% - 145px * var(--bs));left:calc(15px * var(--bs));right:calc(20px * var(--bs))}
+ .teacher.board-display .chart-guide span{font-family:'Haebit Gothic',sans-serif;font-size:calc(16px * var(--bs))}
+ .teacher.board-display .chart-unit{top:calc(42px * var(--bs));font-family:'Haebit Gothic',sans-serif;font-size:calc(15px * var(--bs))}
+ .teacher.board-display .chart-pillar{max-width:calc(88px * var(--bs));min-width:0;width:52%;background:#235644;border-radius:3px 3px 0 0}
+ .teacher.board-display .chart-value{font-family:'Haebit Gothic',sans-serif;font-size:calc(46px * var(--bs));font-weight:400;line-height:1}
+ .teacher.board-display .chart-value>span{font-family:'Haebit Gothic',sans-serif;font-size:calc(20px * var(--bs))}
+ .teacher.board-display .chart-organism{height:calc(65px * var(--bs));min-height:0;margin-top:calc(8px * var(--bs));gap:calc(10px * var(--bs));flex-shrink:0}
+ .teacher.board-display .chart-organism strong{font-family:'Haebit Gothic',sans-serif;font-size:calc(27px * var(--bs));font-weight:400}
+ .teacher.board-display .chart-organism-image{width:calc(60px * var(--bs));height:calc(56px * var(--bs))}
+ .teacher.board-display .results-actor{justify-content:center;min-height:0}
+ .teacher.board-display .results-actor .dispatch-haebit{width:calc(195px * var(--bs));height:auto;min-height:0;flex:1;max-height:calc(285px * var(--bs))}
+ .teacher.board-display .results-actor p{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));line-height:1.5;margin-top:calc(12px * var(--bs));flex-shrink:0}
+ .teacher.board-display .dispatch-participation{font-family:'Haebit Gothic',sans-serif;font-size:calc(17px * var(--bs));margin:0;flex-shrink:0;color:#667e6b}
+ /* Reasons: one clear sentence per row, unobtrusive indices and counts. */
+ .teacher.board-display .reason-organism-tabs{margin:0;gap:calc(12px * var(--bs));flex-shrink:0}
+ .teacher.board-display .reason-organism-tab{font-family:'Haebit Gothic',sans-serif;font-size:calc(23px * var(--bs));font-weight:400;padding:calc(7px * var(--bs)) calc(20px * var(--bs));border-radius:5px}
+ .teacher.board-display .reason-context{font-family:'Haebit Gothic',sans-serif;font-size:calc(19px * var(--bs));margin:0;flex-shrink:0;color:#678067}
+ .teacher.board-display .dispatch-reason-cards{flex:1;min-height:0;max-width:none;width:100%;grid-template-rows:repeat(4,minmax(0,1fr));gap:calc(10px * var(--bs))}
+ .teacher.board-display .dispatch-reason-card{min-height:0;padding:calc(9px * var(--bs)) calc(20px * var(--bs));grid-template-columns:calc(32px * var(--bs)) minmax(0,1fr) calc(72px * var(--bs));gap:calc(16px * var(--bs))}
+ .teacher.board-display .reason-card-text{font-size:calc(25px * var(--bs));line-height:1.4;color:#315b42}
+ .teacher.board-display .reason-card-index{font-family:'Haebit Gothic',sans-serif;font-size:calc(20px * var(--bs));color:#9caa91}
+ .teacher.board-display .reason-card-count strong{font-family:'Haebit Gothic',sans-serif;font-size:calc(34px * var(--bs));font-weight:400;line-height:1;color:#315d48}
+ .teacher.board-display .reason-card-count span{font-family:'Haebit Gothic',sans-serif;font-size:calc(17px * var(--bs));line-height:1}
+ .teacher.board-display .reason-discussion{font-family:'Haebit Gothic',sans-serif;font-weight:400;font-size:calc(19px * var(--bs));line-height:1.5;margin:calc(5px * var(--bs)) 0 0;flex-shrink:0;color:#47734e}
+ /* All three requests remain on one board, including the final seal. */
+ .teacher.board-display .teacher-summary{display:grid;grid-template-rows:calc(42px * var(--bs)) minmax(0,1fr) calc(73px * var(--bs));gap:calc(10px * var(--bs));min-height:0;overflow:visible;padding:0}
+ .teacher.board-display .teacher-summary:has(.completion-sheet){grid-template-rows:calc(104px * var(--bs)) calc(42px * var(--bs)) minmax(0,1fr) calc(73px * var(--bs))}
+ .teacher.board-display .teacher-summary>h1{font-family:'Haebit Gothic',sans-serif;font-size:calc(34px * var(--bs));font-weight:400;margin:0;line-height:1.15}
+ .teacher.board-display .summary-grid{min-height:0;gap:calc(14px * var(--bs))}
+ .teacher.board-display .summary-grid .panel{padding:calc(13px * var(--bs));min-height:0;border-color:#cbd7c1;border-radius:5px;box-shadow:none;background:#fffefa}
+ .teacher.board-display .summary-grid h2{font-size:calc(20px * var(--bs));min-height:2.6em;line-height:1.3;color:#315b42}
+ .teacher.board-display .summary-grid .eyebrow{font-family:'Haebit Gothic',sans-serif;font-size:calc(13px * var(--bs));font-weight:400;margin-bottom:calc(7px * var(--bs))}
+ .teacher.board-display .summary-grid .bars{gap:calc(7px * var(--bs));margin:calc(9px * var(--bs)) 0}
+ .teacher.board-display .summary-grid .bar-row{gap:calc(8px * var(--bs));padding:calc(4px * var(--bs)) calc(5px * var(--bs));line-height:1.2;border-width:1px;background:#f1f5e9;border-radius:4px}
+ .teacher.board-display .summary-grid .bar-name{font-size:calc(23px * var(--bs));width:calc(96px * var(--bs));white-space:nowrap}
+ .teacher.board-display .summary-grid .bar-count{font-size:calc(23px * var(--bs));width:calc(50px * var(--bs))}
+ .teacher.board-display .summary-grid .bar-track{height:calc(21px * var(--bs));background:#e1e9d7;border-radius:6px}
+ .teacher.board-display .summary-grid .bar-fill{background:#235644;border-radius:6px}
+ .teacher.board-display .summary-grid .participation{font-family:'Haebit Gothic',sans-serif;font-size:calc(14px * var(--bs));font-weight:400;margin:0}
+ .teacher.board-display .summary-prompt{margin:0;padding:calc(8px * var(--bs)) calc(20px * var(--bs));display:flex;flex-direction:column;justify-content:center;background:#e6edda;border-radius:5px}
+ .teacher.board-display .summary-prompt h2{font-size:calc(20px * var(--bs));line-height:1.25;margin:0;color:#416742}
+ .teacher.board-display .summary-prompt .muted{display:none}
+ .teacher.board-display .completion-sheet.is-compact{min-height:0;margin:0;height:100%;padding:calc(8px * var(--bs)) calc(178px * var(--bs)) calc(8px * var(--bs)) calc(20px * var(--bs));box-shadow:0 4px 0 #dce4ce;border-radius:4px}
+ .teacher.board-display .is-compact .completion-meta{font-family:'Haebit Gothic',sans-serif;font-size:calc(10px * var(--bs));padding-bottom:calc(4px * var(--bs))}
+ .teacher.board-display .is-compact .completion-kicker{display:none}
+ .teacher.board-display .is-compact .completion-title{font-family:'Haebit Gothic',sans-serif;font-size:calc(29px * var(--bs));font-weight:400;line-height:1.15;margin:calc(6px * var(--bs)) 0 calc(5px * var(--bs));text-align:left}
+ .teacher.board-display .is-compact .completion-copy{font-family:'Haebit Gothic',sans-serif;font-size:calc(19px * var(--bs));line-height:1.3}
+ .teacher.board-display .is-compact .completion-impact{width:calc(148px * var(--bs));height:100%;right:calc(15px * var(--bs));top:0}
+ .teacher.board-display .is-compact .completion-seal{width:calc(135px * var(--bs));height:calc(86px * var(--bs));border-width:2px;outline-offset:-7px}
+ .teacher.board-display .is-compact .seal-office,.teacher.board-display .is-compact .seal-foot{font-size:calc(7px * var(--bs));line-height:1.2;letter-spacing:0;margin-top:0}
+ .teacher.board-display .is-compact .seal-title{font-size:calc(20px * var(--bs));margin-top:3px}
+ .teacher.board-display .is-compact .seal-done{font-size:calc(30px * var(--bs));letter-spacing:calc(5px * var(--bs))}
+}
+@media(max-width:949px){.teacher.board-display .brand{font-size:18px}.teacher.board-display .topbar{padding-left:15px;padding-right:15px}.teacher.board-display .story-line{font-family:'Haebit Gothic',sans-serif;line-height:1.55}.teacher.board-display .letter-content{font-family:'Haebit Gothic',sans-serif;font-weight:400;line-height:1.65;font-size:28px}.teacher.board-display .choice-stage-body{display:block}.teacher.board-display .dispatch-chart{width:min(600px,100%);margin:0 auto}.teacher.board-display .chart-pillar{max-width:80px;width:52%;min-width:0;border-radius:3px 3px 0 0}.teacher.board-display .chart-organism strong{font-family:'Haebit Gothic',sans-serif}}
+/* Final composition rules; use the same spacing and type hierarchy in every scene. */
+.teacher.board-display .dispatch-letter:before,.teacher.board-display .dispatch-letter:after{display:none}
+.teacher.board-display .letter-content{line-height:1.7;letter-spacing:-.025em}
+.teacher.board-display .typed-line+.typed-line{font-weight:700}
+.teacher.board-display .scene-title,.teacher.board-display .story-title{line-height:1.3}
+.teacher.board-display .entry-ticket{background:#173f34;color:#fffdf5;border:1px solid #173f34;border-radius:5px;box-shadow:0 16px 35px #173f3414;position:relative}
+.teacher.board-display .entry-ticket:before{content:'';position:absolute;top:24px;left:24px;width:30px;height:2px;background:#c9af79}
+.teacher.board-display .entry-code{color:#fffdf5}
+.teacher.board-display .entry-label{color:#d0c099}
+.teacher.board-display .entry-how{color:#d3dfcf}
+.teacher.board-display .reception-actor{background:radial-gradient(ellipse at center,#e3d8ad70,transparent 68%)}
+.teacher.board-display .reason-card-count strong{font-family:'Haebit Gothic',sans-serif}
+.teacher.board-display .scene-kicker{color:#817252;letter-spacing:.055em}
+.teacher.board-display .story-alert{font-family:'Haebit Gothic',sans-serif;background:transparent;border-radius:0;transform:none;color:#81704b;border-left:2px solid #ac905a;font-size:14px;font-weight:700;letter-spacing:.05em}
+.teacher.board-display .name-tag{font-family:'Haebit Gothic',sans-serif;border-radius:3px;box-shadow:0 3px 8px #26472c09;background:#f7f8ef}
+.teacher.board-display .story-bubble,.teacher.board-display .actor-caption{font-family:'Haebit Gothic',sans-serif;background:transparent;border:0;border-top:1px solid #b9c5a8;border-bottom:1px solid #b9c5a8;border-radius:0;color:#41604a;line-height:1.65}
+.teacher.board-display .actor-caption:after{display:none}
+.teacher.board-display .summary-grid h2,.teacher.board-display .summary-prompt h2{font-weight:700!important}
+.teacher.board-display .summary-grid .bar-row{background:transparent;border:0;border-radius:0}
+.teacher.board-display .summary-grid .bar-track,.teacher.board-display .summary-grid .bar-fill{border-radius:2px}
+.teacher.board-display .completion-seal{font-family:'Haebit Gothic',sans-serif;border-radius:3px}
+.teacher.board-display .completion-title{font-family:'Haebit Gothic',sans-serif;font-weight:700!important}
+@media(min-width:950px){
+ .teacher.board-display .classroom-settings-button{border-radius:4px;font-size:calc(12px * var(--bs))}
+ .teacher.board-display .classroom-room{font-size:calc(12px * var(--bs))}
+ .teacher.board-display .classroom-room strong{font-size:calc(22px * var(--bs));font-weight:700}
+ .teacher.board-display .footer-status strong{font-weight:700}
+ .teacher.board-display .footer-status span{display:none}
+ .teacher.board-display .dispatch-primary:hover{transform:none;background:#183f32}
+ .teacher.board-display .dispatch-secondary{border-radius:5px;box-shadow:none}
+ .teacher.board-display .scene-kicker{font-size:calc(12px * var(--bs));margin-bottom:calc(9px * var(--bs))}
+ .teacher.board-display .scene-heading{margin:calc(8px * var(--bs)) 0}
+ .teacher.board-display .reception-layout{max-width:calc(1060px * var(--bs));margin:0 auto;grid-template-columns:minmax(0,1fr) calc(280px * var(--bs));gap:calc(45px * var(--bs))}
+ .teacher.board-display .entry-label{font-size:calc(17px * var(--bs))}
+ .teacher.board-display .entry-how{font-size:calc(19px * var(--bs));line-height:1.7}
+ .teacher.board-display .reception-actor p{font-size:calc(20px * var(--bs));line-height:1.6}
+ .teacher.board-display .reception-actor .dispatch-haebit{width:calc(225px * var(--bs));max-height:calc(280px * var(--bs))}
+ .teacher.board-display .entry-attendance{max-width:calc(1060px * var(--bs));margin:calc(6px * var(--bs)) auto 0}
+ .teacher.board-display .entry-number{font-size:calc(17px * var(--bs));padding:calc(7px * var(--bs)) 0;border-radius:4px;border:1px solid #d5dccc}
+ .teacher.board-display .entry-number.is-entered{border-color:#235644}
+ .teacher.board-display .entry-legend{font-size:calc(11px * var(--bs));margin-top:calc(8px * var(--bs))}
+ .teacher.board-display .story-layout{max-width:calc(1100px * var(--bs));margin:0 auto;grid-template-columns:minmax(0,1fr) calc(245px * var(--bs));gap:calc(38px * var(--bs))}
+ .teacher.board-display .story-copy{padding:calc(24px * var(--bs)) calc(30px * var(--bs));gap:calc(12px * var(--bs));background:#fffefa;border:1px solid #d7dcca;border-radius:5px;box-shadow:0 15px 40px #203d2c09}
+ .teacher.board-display .story-alert{font-size:calc(13px * var(--bs));padding:0 0 0 calc(10px * var(--bs))}
+ .teacher.board-display .story-line{line-height:1.65;color:#374f40}
+ .teacher.board-display .story-invitation{font-weight:700;color:#235644}
+ .teacher.board-display .mixed-name-tags{margin:calc(4px * var(--bs)) 0 0;gap:calc(13px * var(--bs));justify-content:flex-start}
+ .teacher.board-display .name-tag{font-size:calc(17px * var(--bs));padding:calc(6px * var(--bs)) calc(17px * var(--bs))}
+ .teacher.board-display .story-bubble{font-size:calc(19px * var(--bs));padding:calc(16px * var(--bs)) calc(8px * var(--bs))}
+ .teacher.board-display .story-actor .dispatch-haebit{width:calc(235px * var(--bs));max-height:calc(290px * var(--bs))}
+ .teacher.board-display .letter-layout{max-width:calc(1100px * var(--bs));margin:0 auto;grid-template-columns:minmax(0,1fr) calc(160px * var(--bs));gap:calc(32px * var(--bs))}
+ .teacher.board-display .dispatch-letter{padding:calc(24px * var(--bs)) calc(36px * var(--bs));box-shadow:0 15px 40px #203d2c0b}
+ .teacher.board-display .letter-meta{font-size:calc(12px * var(--bs))}
+ .teacher.board-display .letter-heading{padding:calc(16px * var(--bs)) 0}
+ .teacher.board-display .letter-recipient{font-size:calc(15px * var(--bs));padding:calc(12px * var(--bs)) 0}
+ .teacher.board-display .letter-signature>strong{font-size:calc(16px * var(--bs))}
+ .teacher.board-display .letter-seal{font-family:'Haebit Gothic',sans-serif}
+ .teacher.board-display .actor-caption{font-size:calc(18px * var(--bs));padding:calc(12px * var(--bs)) 0}
+ .teacher.board-display .dispatch-actor .dispatch-haebit{width:calc(160px * var(--bs));max-height:calc(280px * var(--bs))}
+ .teacher.board-display .chart-pillar{background:#235644;border-radius:2px 2px 0 0}
+ .teacher.board-display .chart-value{font-size:calc(42px * var(--bs))}
+ .teacher.board-display .chart-value>span{font-size:calc(17px * var(--bs))}
+ .teacher.board-display .chart-organism strong{font-size:calc(25px * var(--bs));letter-spacing:-.03em}
+ .teacher.board-display .chart-organism-image{width:calc(51px * var(--bs));height:calc(49px * var(--bs))}
+ .teacher.board-display .dispatch-participation{font-size:calc(15px * var(--bs))}
+ .teacher.board-display .reason-organism-tabs{margin:0 auto;gap:0;border-bottom:1px solid #ccd5c1;padding-bottom:calc(6px * var(--bs))}
+ .teacher.board-display .reason-organism-tab{font-size:calc(19px * var(--bs));padding:calc(8px * var(--bs)) calc(22px * var(--bs));border:0;border-radius:4px;background:transparent;color:#52674f}
+ .teacher.board-display .reason-organism-tab.is-selected{background:#235644;color:#fffdf5}
+ .teacher.board-display .reason-context{font-size:calc(16px * var(--bs))}
+ .teacher.board-display .dispatch-reason-cards{max-width:calc(1020px * var(--bs));margin:0 auto}
+ .teacher.board-display .dispatch-reason-card{padding:calc(12px * var(--bs)) calc(26px * var(--bs));border-radius:5px;gap:calc(18px * var(--bs))}
+ .teacher.board-display .reason-card-text{line-height:1.5;letter-spacing:-.02em}
+ .teacher.board-display .reason-card-index{font-size:calc(15px * var(--bs));color:#98865f}
+ .teacher.board-display .reason-card-count span{font-size:calc(14px * var(--bs))}
+ .teacher.board-display .reason-discussion{font-size:calc(19px * var(--bs));line-height:1.5}
+ .teacher.board-display .teacher-summary>h1{font-size:calc(29px * var(--bs));font-weight:700!important;line-height:1.35}
+ .teacher.board-display .summary-grid .panel{padding:calc(16px * var(--bs));border-radius:5px}
+ .teacher.board-display .summary-grid h2{line-height:1.4;min-height:2.8em;letter-spacing:-.025em}
+ .teacher.board-display .summary-grid .eyebrow{font-size:calc(11px * var(--bs));margin-bottom:calc(10px * var(--bs));color:#98865f}
+ .teacher.board-display .summary-grid .bar-name,.teacher.board-display .summary-grid .bar-count{font-size:calc(21px * var(--bs))}
+ .teacher.board-display .summary-grid .bar-name{width:calc(88px * var(--bs))}
+ .teacher.board-display .summary-grid .bar-track{height:calc(17px * var(--bs));background:#e7ebde}
+ .teacher.board-display .summary-grid .participation{font-size:calc(12px * var(--bs))}
+ .teacher.board-display .summary-prompt{background:#e8ede0;border:0;border-left:2px solid #ad9460;border-radius:0;box-shadow:none}
+ .teacher.board-display .summary-prompt h2{line-height:1.4;color:#3b5c42}
+ .teacher.board-display .completion-sheet.is-compact{padding:calc(12px * var(--bs)) calc(178px * var(--bs)) calc(12px * var(--bs)) calc(24px * var(--bs));box-shadow:none;border-radius:5px;background:#173f34;border-color:#173f34;color:#fffdf5}
+ .teacher.board-display .is-compact .completion-meta{border-color:#ffffff26;color:#c6d7c1;padding-bottom:calc(6px * var(--bs))}
+ .teacher.board-display .is-compact .completion-title{font-size:calc(27px * var(--bs));line-height:1.3;color:#fffdf5}
+ .teacher.board-display .is-compact .completion-copy{font-size:calc(15px * var(--bs));line-height:1.4;color:#d2dfcc}
+ .teacher.board-display .is-compact .completion-seal{width:calc(126px * var(--bs));height:calc(82px * var(--bs));color:#d9bd80;border-color:#d9bd80;outline-color:#d9bd80;background:transparent;outline-offset:-6px}
+ .teacher.board-display .is-compact .seal-title{font-size:calc(15px * var(--bs));font-weight:700}
+ .teacher.board-display .is-compact .seal-done{font-size:calc(26px * var(--bs));letter-spacing:calc(4px * var(--bs));font-weight:700}
+}
+@media(max-width:949px){
+ .teacher.board-display .brand{font-size:15px!important}
+ .teacher.board-display .story-copy{padding:22px;background:#fffefa;border:1px solid #d7dcca;border-radius:5px}
+ .teacher.board-display .story-line{font-size:23px;line-height:1.65;margin:8px 0;min-height:0}
+ .teacher.board-display .story-invitation{font-weight:700}
+ .teacher.board-display .letter-content{font-weight:400;line-height:1.7;font-size:25px}
+ .teacher.board-display .entry-code{font-family:'Haebit Gothic',sans-serif;color:#fffdf5}
+ .teacher.board-display .entry-label{color:#d0c099}.teacher.board-display .entry-how{color:#d3dfcf}
+ .teacher.board-display .entry-ticket{padding:30px 20px}
+ .teacher.board-display .reason-organism-tab{font-family:'Haebit Gothic',sans-serif;font-size:18px;border-radius:4px}
+ .teacher.board-display .reason-discussion{font-size:18px}
+}

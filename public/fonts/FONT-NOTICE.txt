@@ -3,3 +3,13 @@ License: SIL Open Font License 1.1; see LICENSE.txt.
 The per-Unicode webfont subsets were merged, retaining the original glyph outlines.
 Layout tables were removed during merging; family renamed to Haebit Gothic.
 Source: https://github.com/notofonts/noto-cjk
+
+Dispatch Head, Dispatch Round, and Dispatch Reading are derived respectively from Do Hyeon, Jua, and Gowun Dodum distributed by Fontsource.
+Per-Unicode subsets were merged without changing glyph outlines, layout tables removed, and internal font families renamed.
+Each original font's SIL OFL 1.1 license and copyright notice are included in the matching *-LICENSE.txt file.
+Preview fonts are subsets of these derived fonts for the sample interface.
+
+Haebit Document Serif is derived from Gowun Batang Bold distributed by Fontsource.
+Original glyph outlines retained; per-Unicode subsets merged, layout tables removed, internal font family renamed.
+License: SIL Open Font License 1.1; see gowun-batang-LICENSE.txt.
+Source: https://github.com/yangheeryu/Gowun-Batang

@@ -1,0 +1,56 @@
+/* Company identity shared by the entrance, student desk and teacher board. */
+:root{--ink:#183c33;--green:#235644;--dark:#173f34;--lime:#e6ece0;--yellow:#dcc99d;--cream:#f3f1e9;--sky:#edf1ee;--line:#d9ded5;--muted:#61716a;--shadow:0 16px 40px #16392d0b}
+body{background:#f3f1e9;color:#183c33;font-family:'Haebit Gothic',sans-serif}
+h1,h2,h3,.brand,.home-copy h1{font-family:'Haebit Gothic',sans-serif;font-weight:700!important;letter-spacing:-.035em}
+.topbar{background:#173f34;color:#fffdf5;border-bottom:1px solid #aa9062}
+.brand{display:flex;align-items:center;gap:12px;font-size:20px!important;letter-spacing:0;font-weight:400!important}
+.brand:before{content:'';width:3px;height:21px;background:#c9af79;flex-shrink:0}
+.topbar .pill{background:#ffffff0c;color:#e4eadb;border-color:#ffffff26;font-family:'Haebit Gothic',sans-serif;font-size:12px;font-weight:400;border-radius:4px}
+.topbar .connection{color:#d5dfd3;font-family:'Haebit Gothic',sans-serif;font-size:12px}
+.panel{border:1px solid #d9ded5;border-radius:7px;background:#fffefa;box-shadow:var(--shadow)}
+.eyebrow,.muted,.large-copy,.speech,.submit-note,.optional-comment label,.code-form label,.board-focus-note{font-family:'Haebit Gothic',sans-serif;font-weight:400;letter-spacing:0}
+.eyebrow{color:#7a6c50;letter-spacing:.045em}
+.button,.dispatch-primary,.dispatch-secondary,.number-button{font-family:'Haebit Gothic',sans-serif;font-weight:700;border-radius:5px;box-shadow:none}
+.button{background:#235644;border-color:#235644;color:#fffdf5}
+.button:hover{background:#183f32;transform:none}
+.button.secondary{background:#fffefa;color:#235644;border-color:#c6d0c2}
+.speech{border-radius:7px;background:#fffefa;border-color:#d5d9ca;box-shadow:none;color:#345449;font-size:21px;line-height:1.65}
+.speech:after{background:#fffefa;border-color:#d5d9ca}
+.code-input,.pin-input,.optional-comment input{font-family:'Haebit Gothic',sans-serif;border:1px solid #bbc8b8;border-radius:5px;background:#fffefa;box-shadow:none}
+.number-button{background:#fffefa;border:1px solid #cbd4c6;color:#235644;font-size:25px}
+.number-button:hover{background:#e9edde;border-color:#9fac94}
+.selected-summary{font-family:'Haebit Gothic',sans-serif;background:#eaf0e5;border-radius:5px;color:#284f3e}
+.organism-card{border:1px solid #cbd4c6;border-radius:6px;box-shadow:none;background:#fffefa}
+.organism-card.selected{border:2px solid #235644;box-shadow:0 0 0 3px #23564412;background:#edf2e8}
+.reason-button{border:1px solid #cbd4c6;border-radius:5px;background:#fffefa;box-shadow:none}
+.reason-button.selected{border-color:#235644;background:#edf2e8;color:#173f34;box-shadow:inset 3px 0 #235644}
+.reason-index{font-family:'Haebit Gothic',sans-serif;font-size:18px;border-radius:4px;background:#edf0e7;color:#46614b}
+.optional-comment{background:#f3f4ec;border-radius:5px;border:0}
+.board-focus-note{color:#627268;background:transparent;border:0}
+.deadline{font-family:'Haebit Gothic',sans-serif;border-radius:5px;background:#e9eee3;color:#365544}
+.arrival-number{font-family:'Haebit Gothic',sans-serif;font-weight:700;color:#235644}
+.home-stage{background-image:none;max-width:1180px}
+.home-copy h1{font-size:56px;line-height:1.22;letter-spacing:-.04em}
+.home-question{font-family:'Haebit Gothic',sans-serif;font-size:24px;line-height:1.7;color:#52665b}
+.role-card{border:1px solid #c8d2c1;border-radius:5px;background:#fffefa;box-shadow:none;padding:20px 24px}
+.role-card:hover{transform:none;border-color:#235644}
+.role-card strong{font-family:'Haebit Gothic',sans-serif;font-weight:700}
+.role-card small{font-family:'Haebit Gothic',sans-serif;color:#61716a}
+.teacher-role{background:#235644;color:#fffdf5;border-color:#235644}
+.teacher-role small{color:#e1e9db}
+.home-note{font-family:'Haebit Gothic',sans-serif;color:#65746a;line-height:1.6}
+.completion-sheet{background:#fffefa;border:1px solid #c7c9b5;border-radius:5px;box-shadow:var(--shadow)}
+.completion-meta,.completion-copy,.completion-next,.completion-pick{font-family:'Haebit Gothic',sans-serif;color:#526b5e}
+.completion-meta{letter-spacing:0;border-color:#d3d8c9}
+.completion-title{font-family:'Haebit Gothic',sans-serif;letter-spacing:-.04em}
+.completion-seal{color:#98523e;border-color:#98523e;outline-color:#98523e;border-radius:3px;background:transparent;font-family:'Haebit Gothic',sans-serif;box-shadow:none}
+.completion-seal .seal-title,.completion-seal .seal-done{font-family:'Haebit Gothic',sans-serif;font-weight:700}
+.completion-seal:after{display:none}
+.completion-impact:before{background:radial-gradient(circle,#b99e4b25,transparent 65%)}
+.completion-pick{border-radius:5px;background:#edf1e6}
+.confirm-dialog,.record-dialog{border:1px solid #a9b7a4;border-radius:7px;background:#fffefa;box-shadow:0 20px 70px #14382726}
+.confirm-dialog h2,.record-dialog h2,.record-dialog h3{font-family:'Haebit Gothic',sans-serif;font-weight:700!important}
+.confirm-dialog p{font-family:'Haebit Gothic',sans-serif}
+.record-dialog .record-box{border-radius:5px;box-shadow:none}
+.record-private-warning,.comment-item{border-radius:5px}.comment-item{background:#edf1e7}
+@media(max-width:760px){.brand{font-size:15px!important;gap:8px}.brand:before{height:18px}.topbar{gap:10px}.topbar .pill{font-size:11px}.home-copy h1{font-size:39px}.home-question{font-size:20px}.role-card{padding:17px 13px}.speech{font-size:17px}}

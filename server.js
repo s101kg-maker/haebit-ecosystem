@@ -4,7 +4,7 @@ const http = require('node:http');
 const crypto = require('node:crypto');
 const path = require('node:path');
 const { Server } = require('socket.io');
-const { QUESTIONS, REASONS } = require('./public/content');
+const { QUESTIONS } = require('./public/content');
 const TOTAL = 27;
 const token = () => crypto.randomBytes(32).toString('hex');
 
@@ -56,13 +56,13 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
     return {
       question: index + 1, state: room.questionStates[index], submitted: responses.length, missing: TOTAL - responses.length,
       organisms: QUESTIONS[index].organisms.map(o => ({ name: o.name, count: responses.filter(r => r.organism === o.name).length,
-        reasons: REASONS.map((label, reason) => ({ label, count: responses.filter(r => r.organism === o.name && r.reason === reason + 1).length })) })),
+        reasons: QUESTIONS[index].reasons.map((label, reason) => ({ label, count: responses.filter(r => r.organism === o.name && r.reason === reason + 1).length })) })),
       comments: responses.filter(r => r.comment).sort((a,b) => a.studentNumber-b.studentNumber).map(r => ({ studentNumber:r.studentNumber, organism:r.organism, comment:r.comment })),
       missingNumbers: Array.from({length:TOTAL}, (_,i) => i+1).filter(n => !room.responses[index].has(n))
     };
   }
   function studentView(room, n) {
-    const view = { roomCode:room.roomCode, total:TOTAL, question:room.currentQuestion + 1, questionState:room.questionStates[room.currentQuestion], ended:room.ended,
+    const view = { roomCode:room.roomCode, total:TOTAL, question:room.currentQuestion + 1, questionState:room.questionStates[room.currentQuestion], lessonPhase:['LOBBY','STORY'].includes(room.presentationStage)?room.presentationStage:'ACTIVE', ended:room.ended,
       submitted:room.responses[room.currentQuestion].has(n), myResponse:room.responses[room.currentQuestion].get(n) || null };
     // Whitelist the public aggregate: reasons/comments/other students never reach students.
     if (view.questionState === 'CLOSED') {
@@ -71,7 +71,7 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
     }
     return view;
   }
-  const teacherView = room => ({roomCode:room.roomCode, total:TOTAL, question:room.currentQuestion+1, questionState:room.questionStates[room.currentQuestion], ended:room.ended,
+  const teacherView = room => ({roomCode:room.roomCode, total:TOTAL, question:room.currentQuestion+1, questionState:room.questionStates[room.currentQuestion], presentationStage:room.presentationStage, ended:room.ended,
     connected:[...room.participants.values()].filter(p => io.sockets.sockets.has(p.socketId)).length,
     connectedNumbers:[...room.participants.values()].filter(p=>io.sockets.sockets.has(p.socketId)).map(p=>p.number), results:QUESTIONS.map((q,i)=>summary(room,i))});
   function publish(room, students = true) {
@@ -94,7 +94,7 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
   function newRoom(owner) {
     if (rooms.size >= 500) fail('수업방이 가득 찼습니다. 잠시 후 다시 시도해 주세요.');
     let code; do { code = String(crypto.randomInt(1000,10000)); } while (rooms.has(code));
-    const room = {roomCode:code, teacherToken:owner, currentQuestion:0, questionStates:['OPEN','PENDING','PENDING'], participants:new Map(), responses:[new Map(),new Map(),new Map()], ended:false, touchedAt:Date.now()};
+    const room = {roomCode:code, teacherToken:owner, currentQuestion:0, questionStates:['PENDING','PENDING','PENDING'], presentationStage:'LOBBY', participants:new Map(), responses:[new Map(),new Map(),new Map()], ended:false, touchedAt:Date.now()};
     rooms.set(code,room); return room;
   }
   function attachTeacher(socket, room, auth) {
@@ -124,6 +124,13 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
     reply(socket,'create_room',() => {
       const owner=validSession(socket.data.auth); const room=newRoom(owner); attachTeacher(socket,room,owner); return {state:teacherView(room)};
     });
+    reply(socket,'intro_next',({stage}) => {
+      const room=authTeacher(socket);
+      if(room.ended || room.presentationStage!==stage || !['LOBBY','STORY'].includes(stage)) fail('현재 입장 안내 단계를 확인해 주세요.');
+      if(stage==='LOBBY') room.presentationStage='STORY';
+      else {room.presentationStage='NOTICE';room.questionStates[0]='OPEN';}
+      publish(room);return {state:teacherView(room)};
+    });
     reply(socket,'student_join',({roomCode,studentNumber,studentToken}) => {
       const room=rooms.get(roomCode);
       if(!room) fail('참여 코드를 확인해 주세요. 수업방이 없거나 초기화되었습니다.');
@@ -147,7 +154,7 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
       const [room,p]=authStudent(socket), i=room.currentQuestion;
       if(room.ended || question!==i+1 || room.questionStates[i]!=='OPEN') fail('집계가 마감되었습니다. 친구들의 선택을 함께 살펴봅시다.');
       if(room.responses[i].has(p.number)) fail('이미 제출했습니다. 제출한 선택은 바꿀 수 없습니다.');
-      if(!QUESTIONS[i].organisms.some(o=>o.name===organism) || !Number.isInteger(reason) || reason<1 || reason>4) fail('생물과 이유를 각각 하나씩 골라 주세요.');
+      if(!QUESTIONS[i].organisms.some(o=>o.name===organism) || !Number.isInteger(reason) || reason<1 || reason>QUESTIONS[i].reasons.length) fail('생물과 이유를 각각 하나씩 골라 주세요.');
       if(typeof comment!=='string' || Array.from(comment).length>40) fail('내 생각은 40자까지 쓸 수 있어요.');
       const response={studentNumber:p.number,question,organism,reason,comment:comment.trim(),submitted:true,submittedAt:new Date().toISOString()};
       room.responses[i].set(p.number,response); publish(room,false);
@@ -157,12 +164,19 @@ function createApp({ teacherPin = process.env.TEACHER_PIN, sessionTtlMs = 12 * 3
     reply(socket,'close_poll',({question})=>{
       const room=authTeacher(socket); checkQuestion(room,question);
       if(room.ended || room.questionStates[room.currentQuestion]!=='OPEN') fail('이미 마감된 요청입니다.');
-      room.questionStates[room.currentQuestion]='CLOSED'; publish(room); return {state:teacherView(room)};
+      room.questionStates[room.currentQuestion]='CLOSED'; room.presentationStage='CHOICES'; publish(room); return {state:teacherView(room)};
+    });
+    reply(socket,'presentation_set',({question,stage})=>{
+      const room=authTeacher(socket); checkQuestion(room,question);
+      if(room.ended || room.questionStates[room.currentQuestion]!=='CLOSED') fail('집계를 마감한 뒤 결과를 공개해 주세요.');
+      if(!['CHOICES','REASONS'].includes(stage)) fail('공개 화면을 다시 확인해 주세요.');
+      room.presentationStage=stage; publish(room,false); return {state:teacherView(room)};
     });
     reply(socket,'next_question',({question})=>{
       const room=authTeacher(socket); checkQuestion(room,question);
       if(room.ended || room.questionStates[room.currentQuestion]!=='CLOSED' || room.currentQuestion>=2) fail('결과를 확인한 뒤 다음 요청으로 이동해 주세요.');
-      room.currentQuestion++; room.questionStates[room.currentQuestion]='OPEN'; publish(room); return {state:teacherView(room)};
+      if(room.presentationStage!=='REASONS') fail('선택 이유를 함께 확인한 뒤 다음 요청으로 이동해 주세요.');
+      room.currentQuestion++; room.questionStates[room.currentQuestion]='OPEN'; room.presentationStage='NOTICE'; publish(room); return {state:teacherView(room)};
     });
     reply(socket,'class_end',()=>{
       const room=authTeacher(socket);
